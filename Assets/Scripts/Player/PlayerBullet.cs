@@ -1,4 +1,4 @@
-public class PlayerBullet : Bullet
+public class PlayerBullet : Bullet, IInteractible
 {
     protected override void CollisionDetected(IInteractible interacteble)
     {

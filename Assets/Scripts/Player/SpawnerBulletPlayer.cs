@@ -3,14 +3,22 @@ using UnityEngine;
 public class SpawnerBulletPlayer : Spawner<Bullet>
 {
     [SerializeField] private Player _player;
+    [SerializeField] private InputService _inputService;
 
-    private void Update()
+    [SerializeField] private ScoreCounter _scoreCounter;
+
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-            CreateObject();
+        _inputService.Attack += OnAttack;
     }
 
-    private void CreateObject()
+    private void OnDisable()
+    {
+        Reset();
+        _inputService.Attack -= OnAttack;
+    }
+
+    private void OnAttack()
     {
         if (TryGetObject(out Bullet bullet))
             SetBullet(bullet);

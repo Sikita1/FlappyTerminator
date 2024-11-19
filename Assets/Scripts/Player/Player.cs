@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerCollisionHandler))]
 public class Player : MonoBehaviour, IInteractible
 {
+    [SerializeField] private ScoreCounter _scoreCounter;
+
     private PlayerMover _playerMover;
     private PlayerCollisionHandler _handler;
 
@@ -32,6 +34,9 @@ public class Player : MonoBehaviour, IInteractible
     private void ProcessCollision(IInteractible interactible)
     {
         if (interactible is Earth || interactible is EnemyBullet)
+        {
             GameOver?.Invoke();
+            _scoreCounter.Reset();
+        }
     }
 }

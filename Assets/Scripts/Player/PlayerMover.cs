@@ -6,6 +6,8 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private float _tapForce;
     [SerializeField] private float _speed;
 
+    [SerializeField] private InputService _inputService;
+
     private Vector2 _startPosition;
     private Rigidbody2D _rigidbody2D;
 
@@ -19,10 +21,14 @@ public class PlayerMover : MonoBehaviour
         _startPosition = transform.position;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            _rigidbody2D.velocity = new Vector2(_speed, _tapForce);
+        _inputService.Jump += OnJump;
+    }
+
+    private void OnDestroy()
+    {
+        _inputService.Jump -= OnJump;
     }
 
     public void Reset()
@@ -30,4 +36,7 @@ public class PlayerMover : MonoBehaviour
         transform.position = _startPosition;
         _rigidbody2D.velocity = Vector2.zero;
     }
+
+    private void OnJump() =>
+        _rigidbody2D.velocity = new Vector2(_speed, _tapForce);
 }

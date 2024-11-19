@@ -50,5 +50,6 @@ public class Game : MonoBehaviour
         Time.timeScale = 1;
         _spawnerEnemy.ZeroOut();
         _player.Reset();
+        _spawnerEnemy.StartSpawn();
     }
 }

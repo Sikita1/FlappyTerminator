@@ -30,17 +30,17 @@ public class Enemy : MonoBehaviour, IInteractible
     public Transform SetAttackPosition(Transform position) =>
         AttackPosition = position;
 
-    public void Die()
-    {
-        CanAttack = false;
-        Died?.Invoke(this);
-        gameObject.SetActive(false);
-    }
-
     public void AuthorizeAttack()
     {
         CanAttack = true;
         CameIntoAttackPosition?.Invoke();
+    }
+
+    private void Die()
+    {
+        CanAttack = false;
+        Died?.Invoke(this);
+        gameObject.SetActive(false);;
     }
 
     private void ProcessCollision(IInteractible interactible)
